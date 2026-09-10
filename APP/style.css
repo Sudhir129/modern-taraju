@@ -1,0 +1,381 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #e0f2fe, #f5f3ff, #ecfdf5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 25px;
+    color: #172033;
+}
+
+/* MAIN APP */
+
+.app {
+    width: 100%;
+    max-width: 480px;
+    background: rgba(255, 255, 255, 0.92);
+    padding: 28px;
+    border-radius: 28px;
+    box-shadow: 0 20px 60px rgba(31, 41, 55, 0.15);
+    border: 1px solid rgba(255,255,255,0.8);
+}
+
+/* TITLE */
+
+h1 {
+    text-align: center;
+    font-size: 30px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    color: #111827;
+}
+
+.subtitle {
+    text-align: center;
+    margin-top: 5px;
+    color: #6b7280;
+    font-size: 14px;
+}
+
+/* SCALE ICON */
+
+.scale {
+    width: 72px;
+    height: 72px;
+    margin: 20px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 38px;
+    background: linear-gradient(135deg, #2563eb, #7c3aed);
+    border-radius: 22px;
+    box-shadow: 0 10px 25px rgba(79, 70, 229, 0.25);
+}
+
+/* TABS */
+
+.tabs {
+    display: flex;
+    gap: 8px;
+    background: #f1f5f9;
+    padding: 6px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+}
+
+.tab {
+    flex: 1;
+    border: none;
+    padding: 12px 8px;
+    border-radius: 11px;
+    background: transparent;
+    color: #64748b;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.25s;
+}
+
+.tab:hover {
+    color: #2563eb;
+}
+
+.tab.active {
+    background: white;
+    color: #2563eb;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+/* INPUT BOX */
+
+.box {
+    display: none;
+    animation: fadeIn 0.3s ease;
+}
+
+.box.show {
+    display: block;
+}
+
+label {
+    display: block;
+    margin: 14px 0 7px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #374151;
+}
+
+input {
+    width: 100%;
+    padding: 14px 16px;
+    border: 2px solid #e5e7eb;
+    border-radius: 14px;
+    background: #f9fafb;
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 500;
+    outline: none;
+    transition: 0.25s;
+}
+
+input:focus {
+    border-color: #6366f1;
+    background: white;
+    box-shadow: 0 0 0 4px rgba(99,102,241,0.1);
+}
+
+input::placeholder {
+    color: #9ca3af;
+}
+
+/* DONE BUTTON */
+
+.done {
+    width: 100%;
+    margin-top: 20px;
+    padding: 15px;
+    border: none;
+    border-radius: 15px;
+    background: linear-gradient(135deg, #2563eb, #7c3aed);
+    color: white;
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(79,70,229,0.25);
+    transition: 0.25s;
+}
+
+.done:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 25px rgba(79,70,229,0.3);
+}
+
+.done:active {
+    transform: scale(0.98);
+}
+
+/* RESULT */
+
+.result {
+    display: none;
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, #eff6ff, #f5f3ff);
+    border: 1px solid #dbeafe;
+    text-align: center;
+    animation: fadeIn 0.3s ease;
+}
+
+.amount {
+    font-size: 24px;
+    font-weight: 800;
+    color: #1d4ed8;
+}
+
+.calculation {
+    margin-top: 6px;
+    color: #64748b;
+    font-size: 13px;
+}
+
+/* ADD BUTTON */
+
+.add-item {
+    width: 100%;
+    margin-top: 15px;
+    padding: 13px;
+    border: none;
+    border-radius: 13px;
+    background: #10b981;
+    color: white;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.25s;
+}
+
+.add-item:hover {
+    background: #059669;
+    transform: translateY(-1px);
+}
+
+/* BILL */
+
+.bill {
+    margin-top: 22px;
+    background: #f8fafc;
+    border: 1px solid #e5e7eb;
+    border-radius: 20px;
+    padding: 18px;
+}
+
+.bill-title {
+    font-size: 18px;
+    font-weight: 800;
+    margin-bottom: 12px;
+    color: #111827;
+}
+
+.small {
+    text-align: center;
+    color: #94a3b8;
+    font-size: 13px;
+    padding: 12px 0;
+}
+
+/* BILL ROW */
+
+.bill-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 12px;
+    margin-bottom: 9px;
+    background: white;
+    border-radius: 13px;
+    border: 1px solid #e5e7eb;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.bill-row b {
+    color: #2563eb;
+    font-size: 14px;
+}
+
+/* DELETE */
+
+.delete-btn {
+    border: none;
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    background: #fee2e2;
+    cursor: pointer;
+    font-size: 17px;
+    transition: 0.2s;
+}
+
+.delete-btn:hover {
+    background: #fecaca;
+    transform: scale(1.05);
+}
+
+/* TOTAL */
+
+.bill-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 2px dashed #cbd5e1;
+    font-size: 17px;
+    font-weight: 800;
+    color: #111827;
+}
+
+#grandTotal {
+    color: #059669;
+    font-size: 20px;
+}
+
+/* RESET */
+
+.reset {
+    width: 100%;
+    margin-top: 15px;
+    padding: 13px;
+    border: 2px solid #e5e7eb;
+    border-radius: 14px;
+    background: white;
+    color: #ef4444;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.25s;
+}
+
+.reset:hover {
+    background: #fef2f2;
+    border-color: #fecaca;
+}
+
+/* ANIMATION */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* MOBILE */
+
+@media (max-width: 500px) {
+
+    body {
+        padding: 12px;
+        align-items: flex-start;
+    }
+
+    .app {
+        margin-top: 10px;
+        padding: 20px;
+        border-radius: 23px;
+    }
+
+    h1 {
+        font-size: 25px;
+    }
+
+    .scale {
+        width: 62px;
+        height: 62px;
+        font-size: 32px;
+    }
+
+    .tab {
+        font-size: 11px;
+        padding: 11px 5px;
+    }
+
+    .amount {
+        font-size: 21px;
+    }
+}
+.app-logo {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.app-logo img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 25px;
+}
+
+.app-logo h1 {
+    margin: 8px 0;
+}

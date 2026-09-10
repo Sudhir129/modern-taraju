@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <link rel="manifest" href="./manifest.json">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="./logo.png">
+
+<title>Taraju Calculator</title>
+
+<link rel="stylesheet" href="style.css">
+</head>
+<link rel="manifest" href="./manifest.json">
+
+<body>
+
+<div class="app">
+
+    <div class="app-logo">
+    <img src="logo.png" alt="Taraju Learn Logo">
+    <h1>Modern Taraju</h1>
+</div>
+
+<div class="subtitle">Weight और Amount की आसान गणना</div>
+
+    <!-- TABS -->
+    <div class="tabs">
+        <button class="tab active" onclick="showWeight()">
+            Weight → Amount
+        </button>
+
+        <button class="tab" onclick="showMoney()">
+            Amount → Weight
+        </button>
+    </div>
+
+
+    <!-- WEIGHT → AMOUNT -->
+    <div id="weightBox" class="box show">
+
+        <label>Rate (₹ per kg)</label>
+        <input
+            type="number"
+            id="rate1"
+            placeholder
+        >
+
+        <label>Weight (Gram)</label>
+        <input
+            type="number"
+            id="weight"
+            placeholder
+        >
+
+        <button class="done" onclick="calculateAmount()">
+            DONE
+        </button>
+
+    </div>
+
+
+    <!-- AMOUNT → WEIGHT -->
+    <div id="moneyBox" class="box">
+
+        <label>Rate (₹ per kg)</label>
+        <input
+            type="number"
+            id="rate2"
+            placeholder
+        >
+
+        <label>Amount (₹)</label>
+        <input
+            type="number"
+            id="money"
+            placeholder
+        >
+
+        <button class="done" onclick="calculateWeight()">
+            DONE
+        </button>
+
+    </div>
+
+
+    <!-- RESULT -->
+    <div class="result" id="result">
+
+        <div class="amount" id="answer"></div>
+
+        <div class="calculation" id="calculation"></div>
+
+        <button
+            class="add-item"
+            onclick="addToBill()"
+        >
+            ➕ Add to Bill
+        </button>
+
+    </div>
+
+
+    <!-- BILL -->
+    <div class="bill">
+
+        <div class="bill-title">
+            🧾 Bill
+        </div>
+
+        <div id="billItems">
+            <div class="small">
+                अभी कोई item नहीं जोड़ा गया।
+            </div>
+        </div>
+
+        <div class="bill-total">
+            <span>Grand Total</span>
+            <span>₹<span id="grandTotal">0.00</span></span>
+        </div>
+
+    </div>
+
+
+    <!-- RESET -->
+    <button class="reset" onclick="resetApp()">
+        🔄 RESET
+    </button>
+
+</div>
+
+
+<script>
+
+let currentAmount = 0;
+let currentWeight = 0;
+let currentRate = 0;
+
+let billItems = [];
+let currentMode = "weight";
+
+
+/* =========================
+   TAB - WEIGHT TO AMOUNT
+========================= */
+
+function showWeight() {
+
+    currentMode = "weight";
+
+    document
+        .getElementById("weightBox")
+        .classList.add("show");
+
+    document
+        .getElementById("moneyBox")
+        .classList.remove("show");
+
+    document
+        .querySelectorAll(".tab")[0]
+        .classList.add("active");
+
+    document
+        .querySelectorAll(".tab")[1]
+        .classList.remove("active");
+
+    document
+        .getElementById("result")
+        .style.display = "none";
+}
+
+
+/* =========================
+   TAB - AMOUNT TO WEIGHT
+========================= */
+
+function showMoney() {
+
+    currentMode = "money";
+
+    document
+        .getElementById("moneyBox")
+        .classList.add("show");
+
+    document
+        .getElementById("weightBox")
+        .classList.remove("show");
+
+    document
+        .querySelectorAll(".tab")[1]
+        .classList.add("active");
+
+    document
+        .querySelectorAll(".tab")[0]
+        .classList.remove("active");
+
+    document
+        .getElementById("result")
+        .style.display = "none";
+}
+
+
+/* =========================
+   WEIGHT → AMOUNT
+========================= */
+
+function calculateAmount() {
+
+    let rate = Number(
+        document.getElementById("rate1").value
+    );
+
+    let weight = Number(
+        document.getElementById("weight").value
+    );
+
+    if (rate <= 0 || weight <= 0) {
+
+        alert("Rate aur Weight enter karo!");
+
+        return;
+    }
+
+    let amount = (rate * weight) / 1000;
+
+    currentRate = rate;
+    currentWeight = weight;
+    currentAmount = amount;
+
+    document.getElementById("answer").innerText =
+        "💰 Amount: ₹" + amount.toFixed(2);
+
+    document.getElementById("calculation").innerText =
+        weight + "g × ₹" + rate + " ÷ 1000";
+
+    document.getElementById("result").style.display =
+        "block";
+}
+
+
+/* =========================
+   AMOUNT → WEIGHT
+========================= */
+
+function calculateWeight() {
+
+    let rate = Number(
+        document.getElementById("rate2").value
+    );
+
+    let money = Number(
+        document.getElementById("money").value
+    );
+
+    if (rate <= 0 || money <= 0) {
+
+        alert("Rate aur Amount enter karo!");
+
+        return;
+    }
+
+    let weight = (money / rate) * 1000;
+
+    currentRate = rate;
+    currentWeight = weight;
+    currentAmount = money;
+
+    document.getElementById("answer").innerText =
+        "⚖️ Weight: " + weight.toFixed(2) + " Gram";
+
+    document.getElementById("calculation").innerText =
+        "₹" + money + " ÷ ₹" + rate + " × 1000";
+
+    document.getElementById("result").style.display =
+        "block";
+}
+
+
+/* =========================
+   ADD TO BILL
+========================= */
+
+function addToBill() {
+
+    if (currentAmount <= 0) {
+
+        alert("Pehle calculation karo!");
+
+        return;
+    }
+
+    let item = {
+
+        rate: currentRate,
+
+        weight: currentWeight,
+
+        amount: currentAmount
+
+    };
+
+    billItems.push(item);
+
+    displayBill();
+
+    document.getElementById("result").style.display =
+        "none";
+}
+
+
+/* =========================
+   DISPLAY BILL
+========================= */
+
+function displayBill() {
+
+    let bill = document.getElementById("billItems");
+
+    bill.innerHTML = "";
+
+    let total = 0;
+
+
+    if (billItems.length === 0) {
+
+        bill.innerHTML =
+            '<div class="small">अभी कोई item नहीं जोड़ा गया।</div>';
+
+        document.getElementById("grandTotal").innerText =
+            "0.00";
+
+        return;
+    }
+
+
+    billItems.forEach(function(item, index) {
+
+        total += item.amount;
+
+
+        let row = document.createElement("div");
+
+        row.className = "bill-row";
+
+
+        let information = document.createElement("div");
+
+        information.innerHTML =
+            "<b>#" + (index + 1) + "</b><br>" +
+            item.weight.toFixed(2) +
+            "g × ₹" +
+            item.rate +
+            "/kg<br>" +
+            "₹" +
+            item.amount.toFixed(2);
+
+
+        let deleteButton =
+            document.createElement("button");
+
+        deleteButton.className =
+            "delete-btn";
+
+        deleteButton.innerText =
+            "🗑️";
+
+
+        deleteButton.onclick =
+            function() {
+
+                deleteItem(index);
+
+            };
+
+
+        row.appendChild(information);
+
+        row.appendChild(deleteButton);
+
+        bill.appendChild(row);
+
+    });
+
+
+    document.getElementById("grandTotal").innerText =
+        total.toFixed(2);
+}
+
+
+/* =========================
+   DELETE ITEM
+========================= */
+
+function deleteItem(index) {
+
+    billItems.splice(index, 1);
+
+    displayBill();
+}
+
+
+/* =========================
+   RESET
+========================= */
+
+function resetApp() {
+
+    document.getElementById("rate1").value = "";
+
+    document.getElementById("weight").value = "";
+
+    document.getElementById("rate2").value = "";
+
+    document.getElementById("money").value = "";
+
+
+    currentAmount = 0;
+
+    currentWeight = 0;
+
+    currentRate = 0;
+
+
+    billItems = [];
+
+    document.getElementById("result").style.display =
+        "none";
+
+
+    displayBill();
+}
+
+</script>
+<script>
+if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("./sw.js");
+}
+</script>
+
+</body>
+</html>
